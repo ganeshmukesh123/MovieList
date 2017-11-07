@@ -1,0 +1,10 @@
+.movie-poster{
+	height: 300px;
+	width: 220px;
+}
+
+.movie{
+	background-color: #e9ecef;
+    padding: 20px 0px;
+    margin-bottom: 28px;
+}
