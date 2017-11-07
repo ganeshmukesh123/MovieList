@@ -27,19 +27,34 @@ function getMovies(searchText){
 	   	 //console.log(movies);
 	   	 let output ='';
 	   	 $.each(movies , (index , movie) => {
-	   	 	output += `
-	   	 	    <div class='col-md-3'>
-	   	 	       <div class="text-center">
-	   	 	        <img src="${movie.Poster}">
-	   	 	        <h5>${movie.Title}</h5>
-	   	 	        <a onclick="movieSelected('${movie.imdbID}')" class="btn btn-primary" href="#">Movie Details</a>
-	   	 	       </div>
-	   	 	    </div>
-	   	 	`;
+			//console.log(movie.Poster);
+			if(imageExists(movie.Poster)){
+		   	 	output += `
+		   	 	    <div class='col-md-3'>
+		   	 	       <div class="text-center movie">
+		   	 	        <img src="${movie.Poster}" class="movie-poster">
+		   	 	        <h5>${movie.Title}</h5>
+		   	 	        <a onclick="movieSelected('${movie.imdbID}')" class="btn btn-primary" href="#">Movie Details</a>
+		   	 	       </div>
+		   	 	    </div>
+		   	 	`;
+	   	    }
+	   	 	
 	   	 });
 	   	 $("#movies").html(output);
 	   })
 	   .catch((err) => {
 	   	 console.log(err);
 	   })
+}
+
+function imageExists(image_url){
+
+    var http = new XMLHttpRequest();
+
+    http.open('HEAD', image_url, false);
+    http.send();
+
+    return http.status != 404;
+
 }
