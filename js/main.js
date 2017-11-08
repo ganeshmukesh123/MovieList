@@ -28,16 +28,18 @@ function getMovies(searchText){
 	   	 let output ='';
 	   	 $.each(movies , (index , movie) => {
 			//console.log(movie.Poster);
-			if(imageExists(movie.Poster)){
-		   	 	output += `
-		   	 	    <div class='col-md-3'>
-		   	 	       <div class="text-center movie">
-		   	 	        <img src="${movie.Poster}" class="movie-poster">
-		   	 	        <h5>${movie.Title}</h5>
-		   	 	        <a onclick="movieSelected('${movie.imdbID}')" class="btn btn-primary" href="#">Movie Details</a>
-		   	 	       </div>
-		   	 	    </div>
-		   	 	`;
+			if((movie.Poster) != "N/A"){
+				if(imageExists(movie.Poster)){
+			   	 	output += `
+			   	 	    <div class='col-md-3'>
+			   	 	       <div class="text-center movie">
+			   	 	        <img src="${movie.Poster}" class="movie-poster">
+			   	 	        <h5>${movie.Title}</h5>
+			   	 	        <a onclick="movieSelected('${movie.imdbID}')" class="btn btn-primary" href="#">Movie Details</a>
+			   	 	       </div>
+			   	 	    </div>
+			   	 	`;
+		   	    }
 	   	    }
 	   	 	
 	   	 });
@@ -55,6 +57,5 @@ function imageExists(image_url){
     http.open('HEAD', image_url, false);
     http.send();
 
-    return http.status != 404;
 
 }
