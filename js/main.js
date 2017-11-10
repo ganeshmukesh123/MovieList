@@ -54,8 +54,14 @@ function imageExists(image_url){
 
     var http = new XMLHttpRequest();
 
-    http.open('HEAD', image_url, false);
+    http.open('HEAD', image_url, true);
     http.send();
 
+    return (http.status != 403);
 
+}
+
+function movieSelected(id){
+	sessionStorage.setItem('movieId', id);
+	window.location = "movie.html";
 }
