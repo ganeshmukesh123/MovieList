@@ -29,7 +29,7 @@ function getMovies(searchText){
 	   	 $.each(movies , (index , movie) => {
 			//console.log(movie.Poster);
 			if((movie.Poster) != "N/A"){
-				if(imageExists(movie.Poster)){
+				//if(imageExists(movie.Poster)){
 			   	 	output += `
 			   	 	    <div class='col-md-3'>
 			   	 	       <div class="text-center movie">
@@ -39,7 +39,7 @@ function getMovies(searchText){
 			   	 	       </div>
 			   	 	    </div>
 			   	 	`;
-		   	    }
+		   	    //}
 	   	    }
 	   	 	
 	   	 });
@@ -47,9 +47,10 @@ function getMovies(searchText){
 	   })
 	   .catch((err) => {
 	   	 console.log(err);
-	   })
+	   });
 }
 
+//used to check whether image exist or not
 function imageExists(image_url){
 
     var http = new XMLHttpRequest();
@@ -64,4 +65,30 @@ function imageExists(image_url){
 function movieSelected(id){
 	sessionStorage.setItem('movieId', id);
 	window.location = "movie.html";
+	return false;
+}
+
+function getMovie(){
+	let movieId = sessionStorage.getItem('movieId');
+
+	axios.get('http://www.omdbapi.com/?apikey=132b235c&i='+movieId)
+	   .then((response) => {
+	   	 //console.log(response);
+	   	 let movie = response.data;
+	   	  let output =`
+	   	    <div class"row">
+	   	       <div class="col-md-4">
+	   	          <img src="${movie.Poster}" >
+	   	       </div>
+	   	       <div class="col-md-8">
+	   	       </div>
+	   	    </div>
+	   	  `;
+
+	   	  $("#movie").html(output);
+	   	 
+	   })
+	   .catch((err) => {
+	   	 console.log(err);
+	   });
 }
